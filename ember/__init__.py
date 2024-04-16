@@ -73,12 +73,12 @@ def create_vectorized_features(data_dir, values, feature_version=2):
     nrows = sum([1 for fp in raw_feature_paths for line in open(fp)])
     vectorize_subset(X_path, y_path, raw_feature_paths, extractor, nrows)
 
-    print("Vectorizing test set")
-    X_path = os.path.join(data_dir, "X_test.dat")
-    y_path = os.path.join(data_dir, "y_test.dat")
-    raw_feature_paths = [os.path.join(data_dir, "test_features.jsonl")]
-    nrows = sum([1 for fp in raw_feature_paths for line in open(fp)])
-    vectorize_subset(X_path, y_path, raw_feature_paths, extractor, nrows)
+    #print("Vectorizing test set")
+    #X_path = os.path.join(data_dir, "X_test.dat")
+    #y_path = os.path.join(data_dir, "y_test.dat")
+    #raw_feature_paths = [os.path.join(data_dir, "test_features.jsonl")]
+    #nrows = sum([1 for fp in raw_feature_paths for line in open(fp)])
+    #vectorize_subset(X_path, y_path, raw_feature_paths, extractor, nrows)
 
 
 def read_vectorized_features(data_dir, subset=None, feature_version=2):
