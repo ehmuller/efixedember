@@ -61,7 +61,7 @@ def vectorize_subset(X_path, y_path, raw_feature_paths, extractor, nrows):
         pass
 
 
-def create_vectorized_features(data_dir, feature_version=2, values):
+def create_vectorized_features(data_dir, values, feature_version=2):
     """
     Create feature vectors from raw features and write them to disk
     """
