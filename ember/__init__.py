@@ -61,16 +61,15 @@ def vectorize_subset(X_path, y_path, raw_feature_paths, extractor, nrows):
         pass
 
 
-def create_vectorized_features(data_dir, feature_version=2):
+def create_vectorized_features(data_dir, feature_version=2, values):
     """
     Create feature vectors from raw features and write them to disk
     """
     extractor = PEFeatureExtractor(feature_version)
-
     print("Vectorizing training set")
     X_path = os.path.join(data_dir, "X_train.dat")
     y_path = os.path.join(data_dir, "y_train.dat")
-    raw_feature_paths = [os.path.join(data_dir, "train_features_{}.jsonl".format(i)) for i in range(6)]
+    raw_feature_paths = [os.path.join(data_dir, "train_features_{}.jsonl".format(i)) for i in values]
     nrows = sum([1 for fp in raw_feature_paths for line in open(fp)])
     vectorize_subset(X_path, y_path, raw_feature_paths, extractor, nrows)
 
@@ -126,13 +125,13 @@ def read_metadata_record(raw_features_string):
     return {k: all_data[k] for k in all_data.keys() & metadata_keys}
 
 
-def create_metadata(data_dir):
+def create_metadata(data_dir, values):
     """
     Write metadata to a csv file and return its dataframe
     """
     pool = multiprocessing.Pool()
 
-    train_feature_paths = [os.path.join(data_dir, "train_features_{}.jsonl".format(i)) for i in range(6)]
+    train_feature_paths = [os.path.join(data_dir, "train_features_{}.jsonl".format(i)) for i in values]
     train_records = list(pool.imap(read_metadata_record, raw_feature_iterator(train_feature_paths)))
 
     metadata_keys = ["sha256", "appeared", "label", "avclass"]
